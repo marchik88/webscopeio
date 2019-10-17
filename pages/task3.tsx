@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { Container, Col, Row, Input } from "reactstrap";
 import Screen from "../components/Screen";
 import * as R from "ramda";
+import InputLabel from "../components/Input";
 
 export default () => {
-  const [lFigure, setLFigure] = useState(0);
-  const [rFigure, setRFigure] = useState(0);
+  const [leftFigure, setLeftFigure] = useState(0);
+  const [rightFigure, setRightFigure] = useState(0);
   const [divider, setDivider] = useState("");
   const addArgs = R.curry((x: number, y: number) => x + y);
-  const sum = (y: number, Y: number) => `Add(${y}, ${Y}) ~> ${addArgs(y, Y)}`;
-  const currySum = (y1: number, y2: number) =>
-    `Add(${y1})(${y2}) ~> ${addArgs(y1)(y2)}`;
+  const sum = (x: number, y: number) => `Add(${x}, ${y}) ~> ${addArgs(x, y)}`;
+  const currySum = (x: number, y: number) =>
+    `Add(${x})(${y}) ~> ${addArgs(x)(y)}`;
 
   const [a, b] = divider.split(",");
 
@@ -20,20 +21,22 @@ export default () => {
         <Container>
           <Row>
             <Col>
-              <Input
-                onChange={event => setLFigure(+event.target.value)}
-                value={lFigure}
-                type="number"
-                name="lFigure"
-                placeholder="Insert number"
+              <InputLabel
+                values={{
+                  value: rightFigure,
+                  type: "number",
+                  name: "rightFigure",
+                  placeholder: "Insert number"
+                }}
+                handleInputChange={setRightFigure}
               />
             </Col>
             <Col>
               <Input
-                onChange={event => setRFigure(+event.target.value)}
-                value={rFigure}
+                onChange={event => setRightFigure(+event.target.value)}
+                value={rightFigure}
                 type="number"
-                name="rFigure"
+                name="rightFigure"
                 placeholder="Insert number"
               />
             </Col>
@@ -41,8 +44,8 @@ export default () => {
           <Row>
             <Col lg="2">
               <section>
-                <div>{sum(lFigure, rFigure)}</div>
-                <div>{currySum(lFigure, rFigure)}</div>
+                <div>{sum(leftFigure, rightFigure)}</div>
+                <div>{currySum(leftFigure, rightFigure)}</div>
               </section>
             </Col>
           </Row>
