@@ -52,14 +52,25 @@ export default () => {
 
     return `${R.join("\n", publications)}\n-----\n${coAuthored}`;
   };
+  const [value, setValue] = React.useState(1);
 
   return (
     <Screen>
       <Container>
         <Row>
+          <Col xs={12}>
+            <select
+              value={value}
+              onChange={event => setValue(+event.target.value)}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </Col>
+        </Row>
+        <Row>
           <Col lg="10">
-            <pre>{getTeamArticlesDescription(1)}</pre>
-            <pre>{getTeamArticlesDescription(2)}</pre>
+            <pre>{getTeamArticlesDescription(value)}</pre>
           </Col>
         </Row>
       </Container>
