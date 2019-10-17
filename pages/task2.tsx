@@ -10,7 +10,7 @@ export default () => {
     const target = e.target as HTMLInputElement;
     const mouse$ = Rx.fromEvent(target, "click");
 
-    const buff$ = mouse$.pipe(debounceTime(250));
+    const buff$ = mouse$.pipe(debounceTime(350));
 
     const click$ = mouse$.pipe(
       buffer(buff$),

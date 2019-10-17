@@ -4,7 +4,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink
@@ -16,7 +15,6 @@ const Navigation = () => {
   return (
     <Container>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
         <NavbarToggler onClick={() => setIsOpen(prevState => !prevState)} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
