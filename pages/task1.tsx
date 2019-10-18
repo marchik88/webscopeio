@@ -11,7 +11,7 @@ export default () => {
   };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const value = e.currentTarget.value;
+    const { value } = e.currentTarget;
     setInputValue(value);
   };
 
