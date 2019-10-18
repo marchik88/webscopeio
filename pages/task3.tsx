@@ -13,9 +13,8 @@ const initState = {
 const useInputs = () => {
   const [inputs, setInputs] = useState(initState);
 
-  const onChange = (e: React.SyntheticEvent) => {
-    const target = e.target as HTMLInputElement;
-    const { name, value } = target;
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
 
     setInputs(prevState => ({
       ...prevState,
