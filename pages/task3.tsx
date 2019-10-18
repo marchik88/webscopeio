@@ -5,9 +5,9 @@ import * as R from "ramda";
 import Input from "../components/Input";
 
 const initState = {
-  leftFigure: "0",
-  rightFigure: "0",
-  divider: "0"
+  leftFigure: "",
+  rightFigure: "",
+  divider: ""
 };
 
 const useInputs = () => {
@@ -30,16 +30,16 @@ const useInputs = () => {
 
 export default () => {
   const addArgs = R.curry((x: number, y: number) => x + y);
-  const sum = (x: string, y: string) => `Add(${x}, ${y}) ~> ${addArgs(+x, +y)}`;
-  const currySum = (x: string, y: string) =>
-    `Add(${x})(${y}) ~> ${addArgs(+x)(+y)}`;
+  const sum = (x: number, y: number) => `Add(${x}, ${y}) ~> ${addArgs(x, y)}`;
+  const currySum = (x: number, y: number) =>
+    `Add(${x})(${y}) ~> ${addArgs(x)(y)}`;
 
   const {
     inputs: { leftFigure, rightFigure, divider },
     onChange
   } = useInputs();
 
-  const [leftDividerNumber, rightDividerNumber] = divider.split(",");
+  const [leftDividerNumber = 0, rightDividerNumber = 0] = divider.split(",");
 
   return (
     <Screen>
@@ -68,8 +68,8 @@ export default () => {
           <Row>
             <Col lg="2">
               <section>
-                <div>{sum(leftFigure, rightFigure)}</div>
-                <div>{currySum(leftFigure, rightFigure)}</div>
+                <div>{sum(+leftFigure, +rightFigure)}</div>
+                <div>{currySum(+leftFigure, +rightFigure)}</div>
               </section>
             </Col>
           </Row>
@@ -86,8 +86,8 @@ export default () => {
                 placeholder="Insert your text"
               />
               <section>
-                <div>{sum(leftDividerNumber, rightDividerNumber)}</div>
-                <div>{currySum(leftDividerNumber, rightDividerNumber)}</div>
+                <div>{sum(+leftDividerNumber, +rightDividerNumber)}</div>
+                <div>{currySum(+leftDividerNumber, +rightDividerNumber)}</div>
               </section>
             </Col>
           </Row>
