@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Col, Row } from "reactstrap";
+import { Container, Col, Row, Button } from "reactstrap";
 import Screen from "../components/Screen";
 import Input from "../components/Input";
 
@@ -28,6 +28,7 @@ export default () => {
               onChange={onChange}
             />
             <summary>{toUpper(inputValue)}</summary>
+            <Button onClick={() => setInputValue("")}>Reset</Button>
           </Col>
         </Row>
       </Container>

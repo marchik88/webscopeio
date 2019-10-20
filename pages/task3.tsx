@@ -34,13 +34,36 @@ export default () => {
   const currySum = (x: number, y: number) =>
     `Add(${x})(${y}) ~> ${addArgs(x)(y)}`;
 
+  const infinityCurry = (fn: any, seed: number): any => {
+    const reduceValue = (args: [], seedValue: number) =>
+      args.reduce((acc, a) => {
+        return fn.call(fn, acc, a);
+      }, seedValue);
+    const next = (...args: any) => {
+      return (...x: []) => {
+        if (!x.length) {
+          return reduceValue(args, seed);
+        }
+        return next(...args, reduceValue(x, seed));
+      };
+    };
+    return next();
+  };
+
+  const iSum = infinityCurry((x: number, y: number) => x + y, 0);
+
+  const infinitySum = (numbers: Array<number>) => R.sum(numbers);
+
+  const infinityCurrySum = (numbers: Array<number>) =>
+    `${numbers.map(item => `${item}`)} ~> ${infinitySum(numbers)}`;
+
   const {
     inputs: { leftFigure, rightFigure, divider },
     onChange
   } = useInputs();
 
-  const [leftDividerNumber = 0, rightDividerNumber = 0] = divider.split(",");
-
+  const numbers = divider.split(",").map(Number);
+  console.log(iSum(...numbers)());
   return (
     <Screen>
       <Container>
@@ -86,8 +109,7 @@ export default () => {
                 placeholder="Insert your text"
               />
               <section>
-                <div>{sum(+leftDividerNumber, +rightDividerNumber)}</div>
-                <div>{currySum(+leftDividerNumber, +rightDividerNumber)}</div>
+                <div>{infinityCurrySum(numbers)}</div>
               </section>
             </Col>
           </Row>
